@@ -17,8 +17,8 @@ export const screenShareResolutions = [
     value: '720p_1',
   },
   {
-    name: '1080p_1',
-    value: '1080p_1'
+    name: '1080p_2',
+    value: '1080p_2'
   }
 ]
 

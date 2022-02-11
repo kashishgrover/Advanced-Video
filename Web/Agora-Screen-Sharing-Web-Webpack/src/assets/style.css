@@ -136,6 +136,8 @@ html, body {
 .agora-theme #local_stream, .agora-theme #local_video_info {
   width: 480px;
   height: 320px;
+  border-radius: 12px;
+  overflow: visible;
 }
 .agora-theme .video-profile {
   position: absolute;

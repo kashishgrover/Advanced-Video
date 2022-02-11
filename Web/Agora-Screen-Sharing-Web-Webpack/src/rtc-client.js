@@ -47,6 +47,7 @@ export default class RTCClient {
     })
     // Occurs when a user subscribes to a remote stream.
     this._client.on('stream-subscribed', (evt) => {
+      console.log('here')
       const remoteStream = evt.stream
       const id = remoteStream.getId()
       this._remoteStreams.push(remoteStream)
@@ -109,11 +110,16 @@ export default class RTCClient {
 
     this._localStream = AgoraRTC.createStream(streamSpec)
 
+    // set screen sharing video resolution
+    this._localStream.setScreenProfile('1080p_2')
+    console.log('set screen profile', '1080p_2')
+
     // init local stream
     this._localStream.init(() => {
       console.log('init local stream success')
+      console.log('asdf', this._localStream)
       // play stream with html element id "local_stream"
-      this._localStream.play('local_stream', {fit: 'cover'})
+      this._localStream.play('local_stream', {fit: 'cover', muted: true})
 
       // run callback
       // resolve();
@@ -149,12 +155,6 @@ export default class RTCClient {
         return
       }
     })
- 
-    // set screen sharing video resolution
-    if (data.screenShareResolution != 'default') {
-      this._localStream.setScreenProfile(data.screenShareResolution)
-      console.log('set screen profile', data.screenShareResolution)
-    }
 
     // Occurs when sdk emit error 
     this._localStream.on('error', (evt) => {
@@ -178,7 +178,7 @@ export default class RTCClient {
        *    Ensure that you set these properties before calling Client.join.
        *  You could find more detail here. https://docs.agora.io/en/Video/API%20Reference/web/interfaces/agorartc.clientconfig.html
       **/
-      this._client = AgoraRTC.createClient({mode: data.mode, codec: data.codec})
+      this._client = AgoraRTC.createClient({mode: data.mode, codec: data.codec, areaCode: AgoraRTC.AREAS.GLOBAL})
     
       this._params = data
     
